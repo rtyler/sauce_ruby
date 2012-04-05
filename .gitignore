@@ -25,3 +25,5 @@ account.yml
 Gemfile.lock
 .idea
 .rvmrc
+*.sqlite3
+schema.rb
