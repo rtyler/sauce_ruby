@@ -6,10 +6,24 @@ require 'shellwords'
 
 Bundler::GemHelper.install_tasks
 
+
+GEMS = ['sauce-jasmine', 'sauce-cucumber', 'sauce-connect', 'sauce-localtunnel']
+
+def gem_kind(name)
+  name.split('-')[1]
+end
+
+
 namespace :spec do
   rspec_options = '--color --format d --fail-fast --order random'
+
   RSpec::Core::RakeTask.new(:unit) do |s|
-    s.pattern = 'spec/sauce/**_spec.rb'
+    patterns = GEMS.map do |name|
+      "gems/#{name}/spec/**_spec.rb"
+    end
+    patterns << 'spec/sauce/**_spec.rb'
+
+    s.pattern = patterns
     s.rspec_opts = rspec_options
   end
 
@@ -78,12 +92,6 @@ Rake::RDocTask.new do |rdoc|
   rdoc.title = "sauce #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
-end
-
-GEMS = ['sauce-jasmine', 'sauce-cucumber', 'sauce-connect']
-
-def gem_kind(name)
-  name.split('-')[1]
 end
 
 GEMS.each do |gem|
