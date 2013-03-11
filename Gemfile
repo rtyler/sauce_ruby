@@ -8,7 +8,7 @@ gem 'capybara', "~> 2.0.0"
 group :test do
   gem 'cucumber'
   gem 'rspec', '~> 2.12'
-  gem 'jasmine', '~> 1.2.0.0'
+  gem 'jasmine', '~> 1.3'
 end
 
 group :development do
